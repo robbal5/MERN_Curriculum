@@ -5,6 +5,8 @@ const db = require('./config/keys').mongoURI;
 const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
 const bodyParser = require('body-parser');
+const User = require('./models/User');
+
 
 mongoose
     .connect(db, { useNewUrlParser: true })
@@ -12,7 +14,15 @@ mongoose
     .catch(err => console.log(err));
 
 
-app.get("/", (req, res) => res.send("Hiya World"));
+app.get("/", (req, res) => {
+    const user = new User({
+        handle: 'robbyb',
+        email: 'robby@gmail.com',
+        password: 'password'
+    })
+    user.save()
+    res.send("Hiya World")
+});
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
 
