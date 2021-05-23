@@ -6,6 +6,7 @@ const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
 const bodyParser = require('body-parser');
 const User = require('./models/User');
+const passport = require('passport');
 
 
 mongoose
@@ -16,17 +17,18 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-    const user = new User({
-        handle: 'robbyb',
-        email: 'robby@gmail.com',
-        password: 'password'
-    })
-    user.save()
-    res.send("Hiya World")
-});
+// app.get("/", (req, res) => {
+//     const user = new User({
+//         handle: 'robbyb',
+//         email: 'robby@gmail.com',
+//         password: 'password'
+//     })
+//     user.save()
+//     res.send("Hiya World")
+// });
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
+app.use(passport.initialize());
 
 
 const port = process.env.PORT || 5000;
