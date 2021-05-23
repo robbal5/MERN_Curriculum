@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
 app.use(passport.initialize());
+require('./config/passport')(passport);
 
 
 const port = process.env.PORT || 5000;
